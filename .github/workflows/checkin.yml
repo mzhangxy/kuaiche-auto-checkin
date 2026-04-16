@@ -9,8 +9,11 @@ jobs:
   auto_checkin_kuaiche:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 📥 拉取私库代码
         uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/dailycheckin-kuaiche
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
