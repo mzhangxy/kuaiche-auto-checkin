@@ -8,6 +8,10 @@ on:
 jobs:
   auto_checkin_kuaiche:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      
     steps:
       - name: 📥 拉取私库代码
         uses: actions/checkout@v4
@@ -32,3 +36,11 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           ACCOUNTS: ${{ secrets.ACCOUNTS }}
         run: npm start
+
+      - name: 🧹 清理旧的工作流运行记录
+        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          repository: ${{ github.repository }}
+          older-than-seconds: 3600
